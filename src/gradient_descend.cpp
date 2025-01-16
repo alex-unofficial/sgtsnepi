@@ -307,7 +307,7 @@ void kl_minimization(coord* y,
             << "%]" << std::endl;
 
   printf("%s:%d: after print\n", __FILE__, __LINE__);
-  printf("%s:%d: before delete\n", __FILE__, __LINE__);
+  fflush(stdout);
 
   delete [] dy;
   delete [] uy;
