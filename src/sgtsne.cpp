@@ -34,6 +34,7 @@ coord * sgtsne(sparse_matrix P, tsneparams params,
                coord *y_in,
                double **timeInfo)
 {
+  printf("%s:%d: enter into function sgtsne\n", __FILE__, __LINE__);
 
   int h_provided = 1;
 
@@ -57,6 +58,7 @@ coord * sgtsne(sparse_matrix P, tsneparams params,
   // ~~~~~~~~~~ print input parameters
   printParams( params );
 
+  printf("%s:%d: before makeStochastic\n", __FILE__, __LINE__);
 
   // ~~~~~~~~~~ make sure input matrix is column stochastic
   uint32_t nStoch = makeStochastic( P );
@@ -66,15 +68,18 @@ coord * sgtsne(sparse_matrix P, tsneparams params,
 
   // ~~~~~~~~~~ prepare graph for SG-t-SNE
   
+  printf("%s:%d: before lambda rescaling\n", __FILE__, __LINE__);
   // ----- lambda rescaling
   if (params.lambda == 1)
     std::cout << "Skipping λ rescaling..." << std::endl;
   else
     lambdaRescaling( P, params.lambda, false, params.dropLeaf );
 
+  printf("%s:%d: before symmetrizing\n", __FILE__, __LINE__);
   // ----- symmetrizing
   symmetrizeMatrix( &P );
 
+  printf("%s:%d: before normalizing\n", __FILE__, __LINE__);
   // ----- normalize matrix (total sum is 1.0)
   double sum_P = .0;
   for(int i = 0; i < P.nnz; i++){
@@ -127,6 +132,7 @@ coord * sgtsne(sparse_matrix P, tsneparams params,
 
   coord *y = new coord [params.n * params.d];
 
+  printf("%s:%d: before intitial y generation\n", __FILE__, __LINE__);
   if (y_in == NULL){
 
     std::cout << "WARNING: Randomizing initial points; non-reproducible results"
@@ -143,9 +149,10 @@ coord * sgtsne(sparse_matrix P, tsneparams params,
     
   }
 
+  printf("%s:%d: before kl_minimization\n", __FILE__, __LINE__);
   // ~~~~~~~~~~ gradient descent
   kl_minimization( y, params, &P, timeInfo );
-
+  printf("%s:%d: after kl_minimization\n", __FILE__, __LINE__);
 
   // ~~~~~~~~~~ inverse permutation
   // coord *y_inv = new coord [params.n * params.d];
@@ -305,7 +312,7 @@ extern "C"{
     int    const grid_threshold,
     int    const np) {
 
-    printf("%s:%d: enter into function\n", __FILE__, __LINE__);
+    printf("%s:%d: enter into function tsnepi_c\n", __FILE__, __LINE__);
 
     if  ( !GLOBAL_GRID_SIZES.empty() ) GLOBAL_GRID_SIZES.clear();
 
