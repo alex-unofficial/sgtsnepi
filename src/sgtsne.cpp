@@ -153,6 +153,7 @@ coord * sgtsne(sparse_matrix P, tsneparams params,
   // ~~~~~~~~~~ gradient descent
   kl_minimization( y, params, &P, timeInfo );
   printf("%s:%d: after kl_minimization\n", __FILE__, __LINE__);
+  fflush(stdout);
 
   // ~~~~~~~~~~ inverse permutation
   // coord *y_inv = new coord [params.n * params.d];
@@ -362,6 +363,7 @@ extern "C"{
     printf("%s:%d: before main function\n", __FILE__, __LINE__);
     double * Y = sgtsne( P, params, y_in, timeInfo );
     printf("%s:%d: after main function\n", __FILE__, __LINE__);
+    fflush(stdout);
 
     if (gridSizes != nullptr)
       for (int i = 0; i < params.maxIter*3; i++)
