@@ -305,6 +305,8 @@ extern "C"{
     int    const grid_threshold,
     int    const np) {
 
+    printf("%s:%d: enter into function\n", __FILE__, __LINE__)
+
     if  ( !GLOBAL_GRID_SIZES.empty() ) GLOBAL_GRID_SIZES.clear();
 
     GRID_SIZE_THRESHOLD = grid_threshold;
@@ -350,11 +352,15 @@ extern "C"{
     P.col = cols;
     P.val = vals;
 
+    printf("%s:%d: before main function\n", __FILE__, __LINE__)
     double * Y = sgtsne( P, params, y_in, timeInfo );
+    printf("%s:%d: after main function\n", __FILE__, __LINE__)
 
     if (gridSizes != nullptr)
       for (int i = 0; i < params.maxIter*3; i++)
         gridSizes[i] = GLOBAL_GRID_SIZES[i];
+
+    printf("%s:%d: after gridsizes loop\n", __FILE__, __LINE__)
 
     delete[] listGridSize;
 
