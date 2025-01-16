@@ -196,6 +196,7 @@ void kl_minimization(coord* y,
                      tsneparams params, 
                      sparse_matrix *P,
                      double **timeInfo = nullptr){
+  printf("%s:%d: enter into kl_minimization\n", __FILE__, __LINE__);
 
   // ----- t-SNE hard coded parameters - Same as in vdM's code
   int    stop_lying_iter = params.earlyIter, mom_switch_iter = 250;
@@ -247,6 +248,7 @@ void kl_minimization(coord* y,
   // phase index
   int p = 0;
 
+  printf("%s:%d: before tsne_iterations\n", __FILE__, __LINE__);
   // ----- Start t-SNE iterations
   start = tsne_start_timer();
   for(int iter = 0; iter < max_iter; iter++) {
@@ -294,6 +296,7 @@ void kl_minimization(coord* y,
     }
     
   }
+  printf("%s:%d: after tsne_iterations\n", __FILE__, __LINE__);
 
   // ----- Print statistics (time spent at PQ and QQ)
   std::cout << " --- Time spent in each module --- \n" << std::endl;
@@ -303,6 +306,7 @@ void kl_minimization(coord* y,
             << " sec [" << timeFrep / (timeFattr + timeFrep) * 100
             << "%]" << std::endl;
 
+  printf("%s:%d: after print\n", __FILE__, __LINE__);
 
   delete [] dy;
   delete [] uy;
