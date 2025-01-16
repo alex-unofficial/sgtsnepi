@@ -374,6 +374,9 @@ extern "C"{
 
     delete[] listGridSize;
 
+    printf("%s:%d: after delete listGridSize\n", __FILE__, __LINE__);
+    fflush(stdout);
+
     return Y;
 
   }
