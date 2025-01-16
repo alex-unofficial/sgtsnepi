@@ -370,6 +370,7 @@ extern "C"{
         gridSizes[i] = GLOBAL_GRID_SIZES[i];
 
     printf("%s:%d: after gridsizes loop\n", __FILE__, __LINE__);
+    fflush(stdout);
 
     delete[] listGridSize;
 
